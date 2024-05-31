@@ -17,7 +17,7 @@ const CardSlideChallenge: React.FC<CardSlideChallengeProps> = (props: CardSlideC
     <IonCard 
       color="warning" 
       className="ion-padding" 
-      style={{"height": "100%", "borderRadius": 25, "color" : "white", maxWidth: "450px"}}      
+      style={{"height": "100%", "borderRadius": 25, "color" : "white", maxWidth: "450px"}}
     >
       
       <IonRow>

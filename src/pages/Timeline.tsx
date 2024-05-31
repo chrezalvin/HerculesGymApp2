@@ -1,4 +1,4 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonGrid, IonHeader, IonItem, IonList, IonModal, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonList, IonModal, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
 import { useEffect, useRef, useState } from "react";
 import Timer from "./Timer";
 import { RouteComponentProps, useHistory } from "react-router";
@@ -6,6 +6,7 @@ import {type Challenge, Timeline, Set } from "../assets/challenges";
 import { useAppSelector } from "../hooks";
 import CampaignProvider, { Campaign } from "../providers/campaignProvider";
 import RepsSetProvider, { RepsSet } from "../providers/repsSetProvider";
+import { backspace, chevronBack } from "ionicons/icons";
 
 interface TimelineProps extends RouteComponentProps<{
     challengeId: string;
@@ -57,19 +58,26 @@ const TimelinePage: React.FC<TimelineProps> = ({match, challengeList, onSetFinis
         <IonPage>
             <IonHeader>
                 <IonToolbar color="warning">
+                <IonButtons slot="start" className="ion-padding-start">
+                    <IonIcon 
+                        icon={chevronBack} 
+                        onClick={
+                            () => {
+                                history.goBack();
+                            }
+                        }
+                    />
+                </IonButtons>
                 <IonTitle >
                     {campaign?.name}
                 </IonTitle>
-                    <IonButtons slot="start">
-                        <IonBackButton />
-                    </IonButtons>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
                 <IonList>
                     {
                         campaign?.days.map((day, index) => (
-                            <IonItem>
+                            <IonItem className="ion-margin-vertical">
                                 <IonButton 
                                     color="warning"
                                     style={{width: "100%", height: "100%"}}
@@ -77,7 +85,7 @@ const TimelinePage: React.FC<TimelineProps> = ({match, challengeList, onSetFinis
                                         history.push(`../timer/${day.id}`);
                                     }}
                                 >
-                                    Day - {index + 1}
+                                    <strong>Day - {index + 1}</strong>
                                 </IonButton>
                             </IonItem>
                         ))

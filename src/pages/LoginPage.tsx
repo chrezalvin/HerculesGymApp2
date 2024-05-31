@@ -13,9 +13,11 @@ const LoginPage: React.FC = () => {
 
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [error, setError] = useState<string | null>(null);
 
     async function login(username: string, password: string) {
         dispatch(setLoading(true));
+        setError(null);
 
         try{
             // wait for 3 seconds
@@ -25,6 +27,7 @@ const LoginPage: React.FC = () => {
         }
         catch(e){
             console.log(e);
+            setError("Invalid username or password");
         }
         finally{
             dispatch(setLoading(false));
@@ -44,7 +47,7 @@ const LoginPage: React.FC = () => {
             </IonHeader>
             <IonContent className="ion-justify-content-center">
                 <IonTitle className="ion-text-center ion-padding-vertical">
-                    Hercules Gym
+                    <strong>Hercules Gym App</strong>
                 </IonTitle>
                 <IonCard>
                     <IonCardContent>
@@ -75,17 +78,20 @@ const LoginPage: React.FC = () => {
                                 </IonCol>
                             </IonRow>
                             <IonRow className="ion-justify-content-center">
-                                <IonCol size="4">
-                                    <IonButton
-                                        onClick={() => login(username, password)}
-                                    >
-                                        {isLoading ? "Loading..." : "Login"}
-                                    </IonButton>
-                                </IonCol>
+                                <IonButton
+                                    onClick={() => login(username, password)}
+                                >
+                                    {isLoading ? "Loading..." : "Login"}
+                                </IonButton>
                             </IonRow>
                         </IonGrid>
                     </IonCardContent>
                 </IonCard>
+                <IonRow class="ion-justify-content-center">
+                    <IonText color="danger" className="ion-text-center">
+                        {error}
+                    </IonText>
+                </IonRow>
             </IonContent>
         </IonPage>
     )

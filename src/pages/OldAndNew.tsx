@@ -1,12 +1,9 @@
 import { IonCol, IonContent, IonGrid, IonHeader, IonImg, IonPage, IonRow, IonSpinner } from "@ionic/react";
-import no_photo from "../assets/images/photo_unavailable.png";
+import no_photo from "../assets/images/photo_unavailable.webp";
 import { usePhotoGallery } from "../hooks/usePhotoGallery";
 import { useEffect, useState } from "react";
 import UserProvider from "../providers/userProvider";
 import { useAppSelector } from "../hooks";
-
-import { storage } from "../firestoreConfig";
-import { getDownloadURL, ref } from "firebase/storage";
 
 const OldAndNew: React.FC = () => {
     const userEmail = useAppSelector(state => state.loggingReducer.userEmail);
@@ -65,7 +62,7 @@ const OldAndNew: React.FC = () => {
                         justifyContent: "center",
                     }}    
                 >
-                    <IonRow className="ion-justify-content-center" style={{maxWidth: "75%"}}>
+                    <IonRow className="ion-justify-content-center" style={{maxWidth: "75%", minWidth: "120px"}}>
                         <IonCol size="6">
                             <h3 className="ion-text-center ion-padding-vertical">Old</h3>
                             <div style={{maxWidth: "250px", margin: "auto"}}>
@@ -76,7 +73,7 @@ const OldAndNew: React.FC = () => {
                                     <IonImg
                                         src={photoOld ?? no_photo}
                                         alt="old"
-                                        style={{width: "100%"}}
+                                        style={{width: "100%", border: "3px solid white"}}
                                         onClick={ async () => {
                                             const photo = await takePhoto();
                                             if(userEmail && photo.webviewPath)
@@ -97,7 +94,7 @@ const OldAndNew: React.FC = () => {
                                     <IonImg
                                         src={photoNew ?? no_photo}
                                         alt="new"
-                                        style={{width: "100%"}}
+                                        style={{width: "100%", border: "3px solid white"}}
                                         onClick={ async () => {
                                             const photo = await takePhoto();
                                             if(userEmail && photo.webviewPath)

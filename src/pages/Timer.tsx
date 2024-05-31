@@ -1,9 +1,9 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonInput, IonItem, IonList, IonPage, IonRow, IonSpinner, IonText, IonTitle } from "@ionic/react";
+import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonInput, IonItem, IonList, IonPage, IonRow, IonSpinner, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import { useEffect, useState } from "react";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useHistory } from "react-router";
 import RepsSetProvider from "../providers/repsSetProvider";
 import RepProvider, { Rep } from "../providers/repProvider";
-import { people } from "ionicons/icons";
+import { chevronBack, people } from "ionicons/icons";
 
 interface Set{
     name: string,
@@ -24,6 +24,7 @@ const Timer: React.FC<TimerProp> = ({match}) => {
     const [reps, setReps] = useState<{duration: number, rep: Rep}[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [thumbnailImg, setThumbnailImg] = useState<string | null>(null);
+    const history = useHistory();
 
     async function fetchRepsSet(id: string){
         setIsLoading(true);
@@ -103,8 +104,22 @@ const Timer: React.FC<TimerProp> = ({match}) => {
 
     return (
         <IonPage>
-            <IonHeader>
-                Timer
+            <IonHeader className="ion-margin-bottom">
+                <IonToolbar color="warning">
+                <IonButtons slot="start" className="ion-padding-start">
+                    <IonIcon 
+                        icon={chevronBack} 
+                        onClick={
+                            () => {
+                                history.goBack();
+                            }
+                        }
+                    />
+                </IonButtons>
+                <IonTitle >
+                    Latihan
+                </IonTitle>
+                </IonToolbar>
             </IonHeader>
             <IonContent>
                 {

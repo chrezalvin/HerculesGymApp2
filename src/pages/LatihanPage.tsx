@@ -1,7 +1,7 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonRow, IonCol, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonText, IonButton, IonImg } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonRow, IonCol, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonText, IonButton, IonImg, IonIcon, IonModal, IonButtons } from '@ionic/react';
 import CardWorkout from '../components/cardWorkout';
 import CardSlideChallenge from '../components/CardSlideChallenge';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useHistory } from 'react-router';
 import { Challenge, Workout } from '../assets/challenges';
@@ -14,6 +14,8 @@ import {getDownloadURL, ref} from "firebase/storage";
 
 import photo_unvailable from "../assets/images/photo_unavailable.png";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
+import { calendar } from 'ionicons/icons';
+import { IonDatetime } from '@ionic/react';
 
 // interface LatihanPageProps{
 //   challenges: Challenge[];
@@ -25,6 +27,8 @@ const LatihanPage: React.FC = () => {
   const campaignData = useAppSelector((state) => state.campaignReducer.campaignData);
   const dispatch = useAppDispatch();
   const history = useHistory();
+
+  const [showCalendar, setShowCalendar] = useState<boolean>(false);
 
   const {width, height} = useWindowDimensions();
 
@@ -71,6 +75,18 @@ const LatihanPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+      <IonModal isOpen={showCalendar}>
+          <IonHeader>
+            <IonToolbar>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setShowCalendar(false)}>Close</IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <IonDatetime></IonDatetime>
+          </IonContent>
+        </IonModal>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Tab 1</IonTitle>
@@ -84,7 +100,13 @@ const LatihanPage: React.FC = () => {
                   <IonCardTitle>Target Mingguan</IonCardTitle>
                 </IonCol>
                 <IonCol class="ion-text-end">
-                  <IonCardTitle style={{ color: 'blue' }}>0/7</IonCardTitle>
+                  <IonIcon 
+                    icon={calendar} 
+                    style={{fontSize: "24px"}}
+                    onClick={() => {
+                      setShowCalendar(true);
+                    }}
+                  />
                 </IonCol>
               </IonRow>
             </IonCardHeader>
@@ -125,11 +147,13 @@ const LatihanPage: React.FC = () => {
                   }
                 }
               >
-                <CardSlideChallenge
-                  title={item.name}
-                  description={"lorem ipsum"}
-                  image={item.imgPath ?? photo_unvailable}
-                />
+                <div>
+                  <CardSlideChallenge
+                    title={item.name}
+                    description={"lorem ipsum"}
+                    image={item.imgPath ?? photo_unvailable}
+                  />
+                </div>
               </SwiperSlide>
             ))
           // props.challenges.map(item => (

@@ -26,12 +26,12 @@ const routes: CustomRoute[] = [
       ),
       icon: time
     },
-    {
-      path: "/forum",
-      name: "Forum",
-      component: <ForumPage key="b"/>,
-      icon: home
-    },
+    // {
+    //   path: "/forum",
+    //   name: "Forum",
+    //   component: <ForumPage key="b"/>,
+    //   icon: home
+    // },
     {
       path: "/progress",
       name: "Progress",
