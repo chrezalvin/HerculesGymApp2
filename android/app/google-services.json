@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "471869125846",
+    "project_id": "hercules-gym-app",
+    "storage_bucket": "hercules-gym-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471869125846:android:49ed6c6a088f995b3c4577",
+        "android_client_info": {
+          "package_name": "com.hercules.gymapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUwPmwxsxT_8YdnbWE3tovJkInwDYSpYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
